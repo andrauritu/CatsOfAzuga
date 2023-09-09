@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+
+    <h1>All the cats</h1>
+    <% for (let cat of cats) {%>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <% if (cat?.images[0]){ %>
+                        <img src="<%=cat.images[0].url %>" alt="" class="img-fluid">
+                        <% } %>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%=cat.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%=cat.description.substring(0, 50) %>...
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%=cat.location %>
+                            </small>
+                        </p>
+                        <a href="/cats/<%=cat._id%>" class="btn btn-primary">View Cat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>

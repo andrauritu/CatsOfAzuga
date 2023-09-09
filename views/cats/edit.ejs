@@ -1,0 +1,75 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row">
+        <h1 class="text-center">Edit the cat</h1>
+        <div class="col-6 offset-3">
+            <form action="/cats/<%=cat._id%>?_method=PUT" method="POST" novalidate class="validated-form"
+                enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="cat[title]" class="form-control" id="title" value="<%=cat.title %>"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-file custom-file">
+                        <input type="file" class="form-file-input" id="image" name="image" multiple>
+                        <label class="form-file-label" for="image">
+                            <span class="form-file-text custom-file-label">Add more image(s)...</span>
+                            <span class="form-file-button">Browse</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <% cat.images.forEach(function(img, i) { %>
+                        <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                        </div>
+                        <label for="image-<%=i%>">Delete?</label>
+                        <% })%>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="cat[description]" class="form-control" id="description" required
+                        rows="3"><%=cat.description %></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="color" class="form-label">Color</label>
+                    <select name="cat[color]" id="color" required>
+                        <% for (let color of colors){ %>
+                            <option value="<%=color %>" <%=cat.color===color ? 'selected' : '' %>>
+                                <%=color %>
+                            </option>
+                            <% } %>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="friendliness" class="form-label">Friendliness</label>
+                    <input type="number" name="cat[friendliness]" class="form-control" id="friendliness"
+                        value="<%=cat.friendliness %>">
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="cat[location]" class="form-control" id="location"
+                        value="<%=cat.location %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Cat</button>
+            </form>
+        </div>
+    </div>
