@@ -52,14 +52,7 @@
                     </label>
 
                 </div>
-                <!-- <div class="mb-3">
-                    <label for="friendliness" class="form-label">Friendliness</label>
-                    <input type="number" name="cat[friendliness]" class="form-control" id="friendliness" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div> -->
-                <div>
+                <div class="mb-3">
                     <label for="friendliness" class="form-label rangeLabel">Friendliness: </label>
                     <input type="range" name="cat[friendliness]" class="form-range" min="0" max="10" id="friendliness">
                 </div>
@@ -78,7 +71,7 @@
     <script src="/javascripts/pickLocation.js"></script>
     <script>
         const mapToken = '<%=process.env.MAPBOX_TOKEN%>';
-        const cats = { features: <% - JSON.stringify(cats) %>};
+        const cats = { features: <%- JSON.stringify(cats) %>};
     </script>
 
     <script>

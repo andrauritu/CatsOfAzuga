@@ -48,12 +48,13 @@ module.exports.showCat = async (req, res) => {
 
 module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params;
+    const cats = await Cat.find({});
     const cat = await Cat.findById(id);
     if (!cat) {
         req.flash('error', 'Cannot find that cat!');
         return res.redirect('/cats');
     }
-    res.render('cats/edit', { cat, colors })
+    res.render('cats/edit', { cat, colors, cats })
 }
 
 module.exports.updateCat = async (req, res) => {
