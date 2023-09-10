@@ -22,7 +22,7 @@ const reviewSchema = new Schema({
 
 //post middleware to delete the image from cloudinary when a review is deleted
 reviewSchema.post('findOneAndDelete', async function (doc) {
-    if (doc) {
+    if (doc && doc.image && doc.image.filename) {
         await cloudinary.uploader.destroy(doc.image.filename);
     }
 })

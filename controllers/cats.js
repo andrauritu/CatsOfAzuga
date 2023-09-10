@@ -58,24 +58,29 @@ module.exports.renderEditForm = async (req, res) => {
 }
 
 module.exports.updateCat = async (req, res) => {
+    console.log('updating cat1');
     const { id } = req.params;
+    console.log('updating cat2');
     const cat = await Cat.findByIdAndUpdate(id, { ...req.body.cat });
+    console.log('updating cat3');
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename })); //this is the array of images that we are adding to the cat
     cat.images.push(...imgs);
-    await cat.save();
+    console.log('updating cat4');
     if (req.body.deleteImages) {
         for (let filename of req.body.deleteImages) {
             await cloudinary.uploader.destroy(filename);
         }
         await cat.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
     }
+    await cat.save();
     req.flash('success', 'Successfully updated cat!');
     res.redirect(`/cats/${cat._id}`)
 }
 
+
 module.exports.deleteCat = async (req, res) => {
     const { id } = req.params;
     await Cat.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted cat :((( ');
+    req.flash('success', 'Successfully deleted cat :(((');
     res.redirect('/cats')
 }

@@ -1,5 +1,4 @@
 const { bulkSave } = require("../../models/review")
-
     (function () {
         'use strict'
         bsCustomFileInput.init()

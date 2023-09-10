@@ -15,6 +15,7 @@ ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200');
 });
 
+const opts = { toJSON: { virtuals: true } };
 
 const CatSchema = new Schema({
     images: [
@@ -69,33 +70,47 @@ const CatSchema = new Schema({
         type: Date,
         default: Date.now
     }
-});
+}, opts);
 
-// CatSchema.post('findOneAndDelete', async function (doc) { //this is a query middleware, it will run after a cat is deleted to delete all the reviews associated with it
-//     if (doc) {
-//         await Review.deleteMany({
-//             _id: {
-//                 $in: doc.reviews
-//             }
-//         })
+// reviewSchema.post('findOneAndDelete', async function (doc) {
+//     if (doc && doc.image && doc.image.filename) {
+//         await cloudinary.uploader.destroy(doc.image.filename);
 //     }
 // })
 
-
-CatSchema.post('findOneAndDelete', async function (
-    cat
-) {
+CatSchema.post('findOneAndDelete', async function (cat) {
     if (cat.reviews) {
+        // Delete reviews
         await Review.deleteMany({
             _id: { $in: cat.reviews }
         });
+
+        // Delete review images
+        const reviewIds = cat.reviews.map(reviewId => reviewId.toString());
+        await Review.deleteMany({
+            _id: { $in: reviewIds },
+            'image.filename': { $exists: true }
+        });
+
+        // Delete review images from Cloudinary (if needed)
+        const reviewsWithImages = await Review.find({
+            _id: { $in: reviewIds },
+            'image.filename': { $exists: true }
+        });
+
+        for (const review of reviewsWithImages) {
+            await cloudinary.uploader.destroy(review.image.filename);
+        }
     }
+
     if (cat.images) {
+        // Delete cat images
         for (const img of cat.images) {
             await cloudinary.uploader.destroy(img.filename);
         }
     }
 });
+
 
 CatSchema.methods.calculateAvgRating = function () {
     let ratingsTotal = 0;
@@ -111,6 +126,12 @@ CatSchema.methods.calculateAvgRating = function () {
     this.save();
     return this.avgRating;
 }
+
+CatSchema.virtual('properties.popUpMarkup').get(function () {
+    return `<strong> <a href="/cats/${this._id}">  ${this.title} </a> </strong>
+    <p> ${this.description.substring(0, 30)}... </p>`;
+}, opts);
+
 
 const Cat = mongoose.model('Cat', CatSchema);
 

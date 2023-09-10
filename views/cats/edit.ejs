@@ -2,7 +2,8 @@
 
     <div class="row">
         <h1 class="text-center">Edit the cat</h1>
-        <div class="col-6 offset-3">
+        <div class="col-md-3"></div>
+        <div class="col-6">
             <form action="/cats/<%=cat._id%>?_method=PUT" method="POST" novalidate class="validated-form"
                 enctype="multipart/form-data">
                 <div class="mb-3">
@@ -15,7 +16,7 @@
                 </div>
                 <div class="mb-3">
                     <div class="form-file custom-file">
-                        <input type="file" class="form-file-input" id="image" name="image" multiple>
+                        <input type="file" class="form-file-input" id="image" name="image" multiple required>
                         <label class="form-file-label" for="image">
                             <span class="form-file-text custom-file-label">Add more image(s)...</span>
                             <span class="form-file-button">Browse</span>
@@ -55,11 +56,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="friendliness" class="form-label rangeLabel">Friendliness: </label>
-                    <input type="range" name="cat[friendliness]" class="form-range" min="0" max="10" id="friendliness">
+                    <input type="range" name="cat[friendliness]" class="form-range" min="0" max="10" id="friendliness"
+                        value="<%=cat.friendliness%>">
                 </div>
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
-                    <input type="text" name="cat[location]" class="form-control" id="location" required>
+                    <input type="text" name="cat[location]" class="form-control" id="location"
+                        value="<%=cat.location %>" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -69,6 +72,8 @@
             </form>
         </div>
     </div>
+    <div class="col-md-3"></div>
+
 
     <script src="/javascripts/pickLocation.js"></script>
     <script>

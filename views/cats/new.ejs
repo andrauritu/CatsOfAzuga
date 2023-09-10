@@ -6,7 +6,8 @@
 
     <div class="row">
         <h1 class="text-center">Add a new cat</h1>
-        <div class="col-6 offset-3">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
             <form action="/cats" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -19,7 +20,7 @@
                     <label class="form-label">Choose Image(s)</label>
                     <div class="form-file custom-file">
                         <input class="form-control custom-file-input" type="file" id="image" name="image" multiple
-                            onchange="previewMultiple(event)">
+                            required onchange="previewMultiple(event)">
                         <label for="image" class="form-label custom-file-label"></label>
                     </div>
                     <div id="formFile"></div>
@@ -68,6 +69,8 @@
             </form>
         </div>
     </div>
+    <div class="col-md-3"></div>
+
     <script src="/javascripts/pickLocation.js"></script>
     <script>
         const mapToken = '<%=process.env.MAPBOX_TOKEN%>';
@@ -80,4 +83,27 @@
         rangeInput.addEventListener('input', function () {
             friendliness.textContent = 'Friendliness: ' + rangeInput.value;
         });
+    </script>
+
+    <script>
+        (function () {
+            'use strict'
+            bsCustomFileInput.init()
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.validated-form')
+
+            // Loop over them and prevent submission
+            Array.from(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
     </script>

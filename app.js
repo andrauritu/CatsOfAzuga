@@ -13,8 +13,10 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
 const multer = require('multer');
-const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/catDB'
+const dbUrl = /*process.env.DB_URL ||*/ 'mongodb://127.0.0.1:27017/catDB'
 const MongoStore = require('connect-mongo');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const { catSchema, reviewSchema } = require('./schemas.js');
 
@@ -52,6 +54,9 @@ app.use(express.urlencoded({ extended: true })); //this is a middleware that par
 app.use(methodOverride('_method'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize({
+    replaceWith: '_' //this will replace any $ or . with an underscore to prevent mongo injection
+}))
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
 
@@ -64,6 +69,7 @@ const store = MongoStore.create({
 });
 
 const sessionConfig = {
+    name: 'session',
     store,
     secret: secret,
     resave: false,
@@ -77,6 +83,54 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(helmet());
+
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net",
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net"
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+const fontSrcUrls = []; //we are not using any fonts
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/dlx9ufwpz/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://images.unsplash.com/",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
+
+
 
 app.use(passport.initialize());
 app.use(passport.session()); //this is for persistent login sessions
@@ -115,5 +169,5 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log('listening on port ${port}')
+    console.log(`listening on port ${port}`)
 });
