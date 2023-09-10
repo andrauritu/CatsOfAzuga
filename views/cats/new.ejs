@@ -1,8 +1,5 @@
 <% layout('layouts/boilerplate') %>
     <link rel="stylesheet" href="/stylesheets/images.css" class="rel">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-
 
     <div class="row">
         <h1 class="text-center">Add a new cat</h1>
@@ -20,11 +17,12 @@
                     <label class="form-label">Choose Image(s)</label>
                     <div class="form-file custom-file">
                         <input class="form-control custom-file-input" type="file" id="image" name="image" multiple
-                            required onchange="previewMultiple(event)">
+                            required>
                         <label for="image" class="form-label custom-file-label"></label>
                     </div>
                     <div id="formFile"></div>
                 </div>
+
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea name="cat[description]" class="form-control" id="description" rows="3"
@@ -106,4 +104,29 @@
                     }, false)
                 })
         })()
+    </script>
+    <script>
+        document.getElementById("image").addEventListener("change", previewMultiple);
+
+        function previewMultiple(event) {
+            const images = event.target.files;
+            const formFileElement = document.getElementById("formFile");
+
+            // Clear the existing content of formFileElement
+            formFileElement.innerHTML = '';
+
+            for (let i = 0; i < images.length; i++) {
+                const file = images[i];
+                const urls = URL.createObjectURL(file);
+
+                // Create a new div to hold the image and file name
+                const imageDiv = document.createElement('div');
+                imageDiv.classList.add('image-preview');
+                imageDiv.innerHTML = `
+                <img src="${urls}">
+                <p>${file.name.substring(0, 3)}(...)${file.name.substring(file.name.length - 4, file.name.length)}</p>`;
+
+                formFileElement.appendChild(imageDiv);
+            }
+        }
     </script>
