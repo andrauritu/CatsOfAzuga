@@ -22,3 +22,22 @@ function add_marker(event) {
 }
 
 map.on('click', add_marker);
+
+const geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    // When active the map will receive updates to the device's location as it changes.
+    trackUserLocation: false,
+    // Draw an arrow next to the location dot to indicate which direction the device is heading.
+    showUserHeading: true
+});
+
+map.addControl(geolocate);
+
+geolocate.on('geolocate', function (e) {
+    const lon = e.coords.longitude;
+    const lat = e.coords.latitude
+    locationInput.value = lon + ', ' + lat;
+    marker.setLngLat([lon, lat]).addTo(map);
+});
