@@ -15,6 +15,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 }
 
 module.exports.validateCat = (req, res, next) => {
+    console.log("Value of cat[fluffy]:", req.body.cat.fluffy); // Add this line for debugging
     const { error } = catSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')

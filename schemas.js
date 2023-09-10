@@ -32,7 +32,7 @@ module.exports.catSchema = Joi.object({
         description: Joi.string().required().escapeHTML(),
         location: Joi.string().required().escapeHTML(),
         color: Joi.string().required(),
-        fluffy: Joi.boolean(),
+        fluffy: Joi.boolean().optional(),
         friendliness: Joi.number().required().min(1).max(10),
     }).required(),
     deleteImages: Joi.array() //this is an array of strings

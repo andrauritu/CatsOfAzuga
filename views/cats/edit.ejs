@@ -54,6 +54,13 @@
                         Looks good!
                     </div>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="fluffy" name="cat[fluffy]" value="true">
+                    <label class="form-check-label" for="fluffy">
+                        Fluffy?
+                    </label>
+                </div>
+                
                 <div class="mb-3">
                     <label for="friendliness" class="form-label rangeLabel">Friendliness: </label>
                     <input type="range" name="cat[friendliness]" class="form-range" min="0" max="10" id="friendliness"
@@ -88,3 +95,4 @@
             friendliness.textContent = 'Friendliness: ' + rangeInput.value;
         });
     </script>
+
