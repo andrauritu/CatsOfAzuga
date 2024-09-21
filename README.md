@@ -110,15 +110,15 @@ Rate and Review: Interact with the cat detail page by rating and reviewing.
 Browse Cats: View all uploaded cats and their details, including ratings and locations.
 ## 📷 Screenshots
 Home Page:
-![Home Page Screenshot](screenshots/homepage.png)
+![Home Page Screenshot](homepage.png)
 
 All cats Page:
-![All Cats Page Screenshot](screenshots/allcats.png)
+![All Cats Page Screenshot](allcats.png)
 
 Cat Detail Page:
-![Cat Detail Page Screenshot](screenshots/showpage.png)
+![Cat Detail Page Screenshot](showpage.png)
 
 Add Cat Page:
-![Add Cat Page Screenshot](screenshots/addcat.png)
+![Add Cat Page Screenshot](addcat.png)
 
 
