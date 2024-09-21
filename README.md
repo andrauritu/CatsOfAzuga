@@ -1,52 +1,66 @@
-🐱 Cats of Azuga
-A web application where users can upload photos, rate, and comment on cats spotted in the mountain village of Azuga, Romania! This project was built using Node.js, Express.js, MongoDB, and Mapbox for interactive maps.
+# 🐱 Cats of Azuga
 
-🌟 Features
-Users can upload cat sightings along with images, descriptions, and location data.
-Rate and review cats with an interactive rating system.
-View all cat sightings on a map, with individual cat detail pages showing precise locations.
-Image upload support with Cloudinary.
-User authentication for adding reviews and cat entries.
-📋 Table of Contents
-Demo
-Technologies
-Project Setup
-Environment Variables
-Usage
+A web application where users can upload photos, rate, and comment on cats spotted in the mountain village of Azuga, Romania! This project was built using **Node.js**, **Express.js**, **MongoDB**, and **Mapbox** for interactive maps.
 
-🛠 Technologies
+## 🌟 Features
+
+- Users can upload cat sightings along with images, descriptions, and location data.
+- Rate and review cats with an interactive rating system.
+- View all cat sightings on a map, with individual cat detail pages showing precise locations.
+- Image upload support with Cloudinary.
+- User authentication for adding reviews and cat entries.
+
+## 📋 Table of Contents
+
+- [Demo](#demo)
+- [Technologies](#technologies)
+- [Project Setup](#project-setup)
+- [Environment Variables](#environment-variables)
+- [Usage](#usage)
+- [License](#license)
+
+## 🚀 Demo
+
+*If the app is live, add the link here. If not, you can remove this section.*
+
+Check out the live demo at: [Demo Link](#)
+
+## 🛠 Technologies
+
 This project is built using the following technologies:
 
-Node.js: Backend JavaScript runtime.
-Express.js: Web framework for Node.js.
-MongoDB (Atlas): Database to store cats, users, and reviews.
-Mapbox: Interactive maps to display cat locations.
-Passport.js: User authentication for login and registration.
-Cloudinary: Image storage and delivery.
-Mongoose: MongoDB ODM to model cat and review data.
-EJS: Templating engine for server-side rendering.
-Bootstrap: Frontend framework for responsive design.
-⚙️ Project Setup
-To set up the Cats of Azuga project locally, follow these steps:
+- **Node.js**: Backend JavaScript runtime.
+- **Express.js**: Web framework for Node.js.
+- **MongoDB (Atlas)**: Database to store cats, users, and reviews.
+- **Mapbox**: Interactive maps to display cat locations.
+- **Passport.js**: User authentication for login and registration.
+- **Cloudinary**: Image storage and delivery.
+- **Mongoose**: MongoDB ODM to model cat and review data.
+- **EJS**: Templating engine for server-side rendering.
+- **Bootstrap**: Frontend framework for responsive design.
 
-1. Clone the Repository
+## ⚙️ Project Setup
+
+To set up the **Cats of Azuga** project locally, follow these steps:
+
+### 1. Clone the Repository
+
 First, clone the repository to your local machine:
 
-bash
-Copy code
+```bash
 git clone https://github.com/your-username/cats-of-azuga.git
 cd cats-of-azuga
-2. Install Dependencies
+```
+### 2. Install Dependencies
 Make sure you have Node.js installed, and then install the required packages by running:
 
-bash
-Copy code
+```bash
 npm install
-3. Environment Variables
+```
+### 3. Environment Variables
 Create a .env file in the root of the project. You will need the following environment variables:
 
-bash
-Copy code
+```bash
 # MongoDB connection URL
 DB_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/catsofazuga
 
@@ -60,39 +74,51 @@ CLOUDINARY_SECRET=your-cloudinary-api-secret
 
 # Mapbox API Token
 MAPBOX_TOKEN=your-mapbox-token
-4. Start MongoDB (if using locally)
+```
+### 4. Start MongoDB (if using locally)
 If you're running MongoDB locally, start MongoDB on your machine:
 
-bash
-Copy code
+```bash
 mongod
+```
 Or, if you're using MongoDB Atlas, ensure that your DB_URL in .env points to your Atlas cluster.
 
-5. Run the Application
+### 5. Run the Application
 Once everything is set up, start the application:
 
-bash
-Copy code
+```bash
 npm run dev
+```
 Open your browser and navigate to http://localhost:3000.
 
-📑 Environment Variables
+## 📑 Environment Variables
 You need to configure the following environment variables in your .env file:
 
+```bash
 DB_URL: MongoDB connection string.
 SECRET: Secret for encrypting session data.
 CLOUDINARY_CLOUD_NAME: Your Cloudinary account cloud name.
 CLOUDINARY_KEY: Your Cloudinary API key.
 CLOUDINARY_SECRET: Your Cloudinary API secret.
-MAPBOX_TOKEN: Your Mapbox API token for displaying maps.
-🔍 Usage
+MAPBOX_TOKEN: Your Mapbox API token for displaying maps
+```
+## 🔍 Usage
 Once the project is set up and running, you can:
 
 Add a Cat: Upload a cat's picture, add location, and description.
 Rate and Review: Interact with the cat detail page by rating and reviewing.
 Browse Cats: View all uploaded cats and their details, including ratings and locations.
-📷 Screenshots
+##📷 Screenshots
 Home Page:
+![Home Page Screenshot](screenshots/homepage.png)
 
+All cats Page:
+![All Cats Page Screenshot](screenshots/allcats.png)
 
 Cat Detail Page:
+![Cat Detail Page Screenshot](screenshots/showpage.png)
+
+Add Cat Page:
+![Add Cat Page Screenshot](screenshots/addcat.png)
+
+
