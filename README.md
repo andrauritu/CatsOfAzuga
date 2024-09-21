@@ -108,7 +108,7 @@ Once the project is set up and running, you can:
 Add a Cat: Upload a cat's picture, add location, and description.
 Rate and Review: Interact with the cat detail page by rating and reviewing.
 Browse Cats: View all uploaded cats and their details, including ratings and locations.
-##📷 Screenshots
+## 📷 Screenshots
 Home Page:
 ![Home Page Screenshot](screenshots/homepage.png)
 
