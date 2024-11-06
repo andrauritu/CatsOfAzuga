@@ -21,9 +21,7 @@ A web application where users can upload photos, rate, and comment on cats spott
 
 ## 🚀 Demo
 
-*If the app is live, add the link here. If not, you can remove this section.*
-
-Check out the live demo at: [Demo Link](#)
+Check out the live demo at: [Cats of Azuga](https://cats-of-azuga-service-670894227736.europe-west1.run.app/)
 
 ## 🛠 Technologies
 
